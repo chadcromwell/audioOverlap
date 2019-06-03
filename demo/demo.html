@@ -15,7 +15,7 @@
 <p id = "S">Press S to toggle sound effects. Sound effects: Not muted.</p>
 <p id = "M">Press M to initialize (start) music. Music: Not initialized.</p>
 <p id = "N">Press N to pause music.</p>
-<script src="../audioOverlap.js"></script>
+<script src="../audioOverlap.min.js"></script>
 <script>
     //keyboard(value) function - Handles keyboard input
     function keyboard(value) {
@@ -78,7 +78,7 @@
     key.release = () => {
         //Only need to do this once
         if(initBool) {
-            playNextSong(); //Start the music
+            playMusic(); //Start the music
 
             //Update HTML
             document.getElementById("M").innerHTML = "Press M to initialize (start) music. Music: Initialized.";
