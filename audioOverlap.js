@@ -75,7 +75,7 @@ function playSFX(key) {
 }
 
 //playNextSong() function - Plays the next song once track finishes playing
-function playNextSong() {
+function playMusic() {
     //If first time being called, play the first song
     if(init) {
         //If the user hasn't set the first track on their own
@@ -91,7 +91,7 @@ function playNextSong() {
         let newRand = Math.floor(Math.random() * Math.floor(getMusicTracksSize())); //Generate new random integer for next track
         //If the new random int matches the last one, that means we need to try again to find a new track
         if(lastRand === newRand) {
-            playNextSong(); //Recursively call this function to try again
+            playMusic(); //Recursively call this function to try again
         }
         //Else, the new random int doesn't match the last one, we found a new track to play
         else {
@@ -111,7 +111,7 @@ function playNextSong() {
     }
     //If a new track should play after one finishes
     if(loopThroughMusic) {
-        music.audio.addEventListener('ended', playNextSong); //Attach eventListener to Audio object, Once the song is done playing, play a new song
+        music.audio.addEventListener('ended', playMusic); //Attach eventListener to Audio object, Once the song is done playing, play a new song
     }
 
     //***Nested function, not to be used by user***//
