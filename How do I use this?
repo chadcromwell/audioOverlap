@@ -1,0 +1,24 @@
+To use audioOverlap all you need to do is include audioOverlap.js or audioOverlap.min.js in your HTML or PHP file.
+
+***Music***
+* To add music, call the addMusic() function and add the music files you desire. Ex: addMusic("song1", "path/to/file.mp3");
+
+* To set the first track that gets played, call setFirstTrack(). Ex: setFirstTrack("song1");
+
+* To start playing music, call playMusic(). This initializes the music and it starts playing.
+
+* To toggle music (play or pause, depending on the current state) call the toggleMusic() function.
+
+* To disable shuffle, call shuffleOff(). This will cause the tracks to be played in the order in which they were added.
+
+* To enable shuffle, call shuffleOn(). This will cause the tracks to be shuffled, the same song will not be repeated twice in a row.
+  Shuffle is already enabled by default, there is no need to call it if you have not called shuffleOff().
+
+***Sound Effects***
+* To add sound effects, call the addSFX() function, add the sound effect you desire, and set the number of times the sound effect can overlap.
+  Do not go overboard with the overlap amount. Only use what you really need. Even 10 is overkill for most instances. Ex: addSFX("sound1", "path/to/file.wav", 4);
+
+* To play sound effects, call the playSFX() function. Ex: if you want to play the "sound1" effect, call playSFX("sound1"); and it will play one of the available
+  "sound1" effects from the sound effect pool.
+
+* To toggle sound effects on or off, call the toggleSFX() function.
