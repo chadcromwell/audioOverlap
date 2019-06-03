@@ -1,0 +1,205 @@
+<!--
+* Author: Chad Cromwell
+* Date: Jun 1, 2019
+* Description: A simple demo of how audioOverlap works
+* Music: Eric Skiff - Chibi Ninja, Jumpshot, Arpanauts, We're the Resistors, Undercocked (underunderclocked mix) - Resistor Anthems - Available at http://EricSkiff.com/music
+-->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Test</title>
+</head>
+<body>
+<p id = "keys">Press keys 1 through 0 to play sound effects</p>
+<p id = "S">Press S to toggle sound effects. Sound effects: Not muted.</p>
+<p id = "M">Press M to initialize (start) music. Music: Not initialized.</p>
+<p id = "N">Press N to pause music.</p>
+<script src="../audioOverlap.js"></script>
+<script>
+    //keyboard(value) function - Handles keyboard input
+    function keyboard(value) {
+        let key = {}; //Key object
+        key.value = value; //Capture value
+        key.isDown = false; //Initialize as not being pressed
+        key.isUp = true; //Initialize as not being pressed
+        key.press = undefined; //Initialize as not being pressed
+        key.release = undefined; //Initialize as not being pressed
+
+        //When button is pressed down
+        key.downHandler = event => {
+            if (event.key === key.value) {
+                //If the key is up and has just been pressed, call key.press()
+                if (key.isUp && key.press) key.press();
+                key.isDown = true; //Key is down
+                key.isUp = false; //Key is not up
+                //event.preventDefault(); //Prevent default behaviour
+            }
+        };
+
+        //When button is released
+        key.upHandler = event => {
+            if (event.key === key.value) {
+                //If the key is down and has just been released, call key.release()
+                if (key.isDown && key.release) key.release();
+                key.isDown = false; //Key is not down
+                key.isUp = true; //Key is up
+                //event.preventDefault(); //Prevent default behaviour
+            }
+        };
+
+        //Create listeners
+        const downListener = key.downHandler.bind(key); //Key down listener
+        const upListener = key.upHandler.bind(key); //Key up listener
+
+        //Add event listeners to "keydown" events
+        window.addEventListener(
+            "keydown", downListener, false
+        );
+
+        //Add event listeners to "keyup" events
+        window.addEventListener(
+            "keyup", upListener, false
+        );
+
+        //Detach event listeners
+        key.unsubscribe = () => {
+            window.removeEventListener("keydown", downListener);
+            window.removeEventListener("keyup", upListener);
+        };
+
+        return key; //Return the key
+    }
+
+    //****HANDLE KEYBOARD INPUT---------------------------------------------------------------------------------------------
+    let initBool = true; //Boolean for initializing music
+    //If m is pressed
+    key = keyboard("m");
+    key.release = () => {
+        //Only need to do this once
+        if(initBool) {
+            playNextSong(); //Start the music
+
+            //Update HTML
+            document.getElementById("M").innerHTML = "Press M to initialize (start) music. Music: Initialized.";
+            document.getElementById("N").innerHTML = "Press N to pause music. Music: Playing.";
+            initBool = false;
+        }
+    };
+
+    //If n is pressed
+    key = keyboard("n");
+    key.release = () => {
+        let bool = true; //Boolean so HTML is only updated once per press
+        toggleMusic(); //Toggle the music play or pause
+
+        //Update HTML to reflect this
+        if(bool && document.getElementById("N").innerHTML === "Press N to pause music. Music: Playing.") {
+            document.getElementById("N").innerHTML = "Press N to pause music. Music: Paused.";
+            bool = false;
+        }
+        if(bool && document.getElementById("N").innerHTML === "Press N to pause music. Music: Paused.") {
+            document.getElementById("N").innerHTML = "Press N to pause music. Music: Playing.";
+            bool = false;
+        }
+    };
+
+    //If 1 is pressed
+    key = keyboard("1");
+    key.press = () => {
+        playSFX("sfx1"); //Play sound effect 1
+    };
+
+    //If 2 is pressed
+    key = keyboard("2");
+    key.press = () => {
+        playSFX("sfx2"); //Play sound effect 2
+    };
+
+    //If 3 is pressed
+    key = keyboard("3");
+    key.press = () => {
+        playSFX("sfx3"); //Play sound effect 3
+    };
+
+    //If 4 is pressed
+    key = keyboard("4");
+    key.press = () => {
+        playSFX("sfx4"); //Play sound effect 4
+    };
+
+    //If 5 is pressed
+    key = keyboard("5");
+    key.press = () => {
+        playSFX("sfx5"); //Play sound effect 5
+    };
+
+    //If 6 is pressed
+    key = keyboard("6");
+    key.press = () => {
+        playSFX("sfx6"); //Play sound effect 6
+    };
+
+    //If 7 is pressed
+    key = keyboard("7");
+    key.press = () => {
+        playSFX("sfx7"); //Play sound effect 7
+    };
+
+    //If 8 is pressed
+    key = keyboard("8");
+    key.press = () => {
+        playSFX("sfx8"); //Play sound effect 8
+    };
+
+    //If 9 is pressed
+    key = keyboard("9");
+    key.press = () => {
+        playSFX("sfx9"); //Play sound effect 9
+    };
+
+    //If 10 is pressed
+    key = keyboard("0");
+    key.press = () => {
+        playSFX("sfx10"); //Play sound effect 10
+    };
+
+    //If s is pressed
+    key = keyboard("s");
+    key.press = () => {
+        let bool = true; //Boolean so HTML is only updated once per press
+        toggleSFX(); //Toggle the sound effects on or off
+
+        //Update HTML to reflect this
+        if(bool && document.getElementById("S").innerHTML === "Press S to toggle sound effects. Sound effects: Not muted.") {
+            document.getElementById("S").innerHTML = "Press S to toggle sound effects. Sound effects: Muted.";
+            bool = false;
+        }
+        if(bool && document.getElementById("S").innerHTML === "Press S to toggle sound effects. Sound effects: Muted.") {
+            document.getElementById("S").innerHTML = "Press S to toggle sound effects. Sound effects: Not muted.";
+            bool = false;
+        }
+    };
+
+    //Add music
+    addMusic("track1", "Sounds/bg1.mp3");
+    addMusic("track2", "Sounds/bg2.mp3");
+    addMusic("track3", "Sounds/bg3.mp3");
+    addMusic("track4", "Sounds/bg4.mp3");
+    addMusic("track5", "Sounds/bg5.mp3");
+    setFirstTrack("track1"); //Set the first track
+
+    //Add sound effects with a key, file, and the size of the sound effect pool. Using 10 in this demonstration which means 10 can play overlapping at a time.
+    addSFX("sfx1", "Sounds/sfx1.wav", 10);
+    addSFX("sfx2", "Sounds/sfx2.wav", 10);
+    addSFX("sfx3", "Sounds/sfx3.wav", 10);
+    addSFX("sfx4", "Sounds/sfx4.wav", 10);
+    addSFX("sfx5", "Sounds/sfx5.wav", 10);
+    addSFX("sfx6", "Sounds/sfx6.wav", 10);
+    addSFX("sfx7", "Sounds/sfx7.wav", 10);
+    addSFX("sfx8", "Sounds/sfx8.wav", 10);
+    addSFX("sfx9", "Sounds/sfx9.wav", 10);
+    addSFX("sfx10", "Sounds/sfx10.wav", 10);
+</script>
+</body>
+</html>
