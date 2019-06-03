@@ -12,7 +12,9 @@ A simple javascript solution for overlapping Audio objects and playing backgroun
 Include:
 ```
 <script src="path/to/audioOverlap.js"></script>
+```
 or
+```
 <script src="path/to/audioOverlap.min.js"></script>
 ```
 
