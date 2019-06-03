@@ -10,7 +10,7 @@
 * Functions:    addMusic(key, pathToAudioFile) - Accepts a key for easy array lookup, path to the audio file. Use this function to add background music to your pool of music.
 *               addSFX(key, pathToAudioFile, number) - Accepts a key for easy array lookup, path to the audio file, and number of times you want this audio file to be able to overlap. Use this function to add sound effects to your pool of sound effects.
 *               playSFX(key) - Accepts a key and plays the corresponding sound effect if it is available from the SFX pool. Use this function to play a sound effect. Simply pass the key you used with addSFX() and it will play.
-*               playNextSong() - Plays the next song once track finishes playing. Call this function once with loopThroughMusic as true (default is true) and it will loop through your music. Shuffle is on by default. You have the ability to disable loopThroughMusic, however you'll then need to call other functions manually and this again each time you want to play a song.
+*               playMusic() - Plays the next song once track finishes playing. Call this function once with loopThroughMusic as true (default is true) and it will loop through your music. Shuffle is on by default. You have the ability to disable loopThroughMusic, however you'll then need to call other functions manually and this again each time you want to play a song.
 *               setFirstTrack(key) - Accepts a key and sets that track to be the first played. Use this function to set the first track that is played if you so desire. If not called, the first track you added will be played first.
 *               shuffleOn() - Turns shuffle on. Shuffle is on by default. Shuffle will shuffle your music tracks and make sure that the same song is not repeated in a row
 *               shuffleOff() - Turns shuffle off. Useful if you want your music to play in a specific order. Be sure to call addMusic() in the order you wish your music to be played.
@@ -277,13 +277,31 @@ function SFXOff() {
 
 //toggleMusic() function - Toggles music to play or pause depending on its current state. Useful for play/pause or mute/unmute buttons.
 function toggleMusic() {
-    //If music is playing, pause it
+    //If music is paused, play it
     if(music.audio.paused) {
         pMusic = true; //Music is playing
         music.audio.play(); //Play the music
     }
-    //Else, it isn't playing, play it
+    //Else, it playing, pause it
     else {
+        pMusic = false; //Music isn't playing
+        music.audio.pause(); //Pause the music
+    }
+}
+
+//musicOn() function - Plays music
+function musicOn() {
+    //If music is paused, play it
+    if(music.audio.paused) {
+        pMusic = true; //Music is playing
+        music.audio.play(); //Play the music
+    }
+}
+
+//musicOff() function - Pauses music
+function musicOff() {
+    //If music is playing, pause it
+    if(!music.audio.paused) {
         pMusic = false; //Music isn't playing
         music.audio.pause(); //Pause the music
     }
